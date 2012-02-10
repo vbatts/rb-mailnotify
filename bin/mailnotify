@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'rb-mailnotify'
+
+def main
+  # First: build list of maildirs. use 'find' and build that list
+  maildirs = find_maildirs(File.join(ENV["HOME"], "Maildir"))
+
+  # Second: setup inotify watchers on those directories
+  #   if there are new events in the "new" directories,
+  #   then trigger the libnotify for that subdir
+  notifier = INotify::Notifier.new
+  maildirs.each do |mdir|
+    notifier.watch(File.join(mdir, 'new'), :create, :moved_to) do |path|
+      check_maildir(mdir) do |new_mails|
+        @log.debug("notifying about #{new_mails.length} emails in #{File.basename(mdir)}")
+        notify_new_mail(File.basename(mdir), new_mails.length)
+      end
+    end
+  end
+
+  begin
+    notifier.run
+  rescue Interrupt
+    @log.info("caught Interrupt, closing")
+    true
+  end
+end
+
+if __FILE__ == $0
+  main
+end
+
+# vim:set sw=2 sts=2 et:

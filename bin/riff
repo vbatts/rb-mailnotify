@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'rb-mailnotify'
+
+def main
+  # First: build list of maildirs. use 'find' and build that list
+  maildirs = find_maildirs(File.join(ENV["HOME"], "Maildir"))
+
+  # Second: show the stats
+  maildirs.each do |mdir|
+    check_maildir(mdir) do |new_mails|
+      puts "#{File.basename(mdir)}: #{new_mails.length}"
+    end
+  end
+end
+
+
+if __FILE__ == $0
+  main
+end
+
+# vim:set sw=2 sts=2 et:
