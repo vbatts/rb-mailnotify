@@ -63,9 +63,11 @@ def check_maildir(path, &block)
   @log.debug(mdir)
 
   new_mail = mdir.list(:new)
+  cur_mail = mdir.list(:cur)
   @log.debug(new_mail)
+  @log.debug(cur_mail)
 
-  yield(new_mail)
+  yield(new_mail,cur_mail)
 
   @log.debug("nil out the vars, for good measure")
   mdir = new_mail = nil

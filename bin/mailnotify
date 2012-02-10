@@ -13,7 +13,7 @@ def main
   notifier = INotify::Notifier.new
   maildirs.each do |mdir|
     notifier.watch(File.join(mdir, 'new'), :create, :moved_to) do |path|
-      check_maildir(mdir) do |new_mails|
+      check_maildir(mdir) do |new_mails,old_mails|
         @log.debug("notifying about #{new_mails.length} emails in #{File.basename(mdir)}")
         notify_new_mail(File.basename(mdir), new_mails.length)
       end

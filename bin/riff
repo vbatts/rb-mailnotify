@@ -9,8 +9,8 @@ def main
 
   # Second: show the stats
   maildirs.each do |mdir|
-    check_maildir(mdir) do |new_mails|
-      puts "#{File.basename(mdir)}: #{new_mails.length}"
+    check_maildir(mdir) do |new_mails, old_mails|
+      puts "#{File.basename(mdir)}: #{new_mails.length} new, #{old_mails.length} current"
     end
   end
 end

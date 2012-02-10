@@ -10,7 +10,7 @@ Name: rubygem-%{gemname}
 Version: 0.1
 Release: 1%{?dist}
 Group: Development/Languages
-License: GPLv2+ or Ruby
+License: MIT
 Source0: %{gemname}-%{version}.gem
 Requires: ruby(abi) = %{rubyabi}
 Requires: ruby(rubygems) 
