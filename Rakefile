@@ -10,7 +10,7 @@ spec = Gem::Specification.new do |s|
   s.authors = ["Vincent Batts"]
   s.date = %q{2012-02-10}
   s.email = %q{vbatts@redhat.com}
-  #s.homepage = %q{https://github.com/vbatts/}
+  s.homepage = %q{https://github.com/vbatts/rb-mailnotify/}
   s.platform = Gem::Platform::RUBY
   s.summary = %q{mail notification-ish tools}
   s.description = %q{mail notification-ish tools }
@@ -21,9 +21,9 @@ spec = Gem::Specification.new do |s|
   }
   s.executables = %w{ riff mailnotify }
   s.require_paths = %w{ lib }
-  s.has_rdoc = false
-  #s.extra_rdoc_files = %w{ README.rdoc }
-  #s.rdoc_options = ["--main=README.rdoc", "--line-numbers", "--inline-source", "--title=#{s.name} #{s.version} Documentation"]
+  s.has_rdoc = true
+  s.extra_rdoc_files = %w{ README.rdoc }
+  s.rdoc_options = ["--main=README.rdoc", "--line-numbers", "--inline-source", "--title=#{s.name} #{s.version} Documentation"]
   %w{ libnotify maildir rb-inotify }.each do |dep|
     s.add_dependency dep
   end
