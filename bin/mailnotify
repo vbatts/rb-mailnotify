@@ -29,6 +29,10 @@ def main
 end
 
 if __FILE__ == $0
+  if ARGV.include?("-d") or ARGV.include?("--debug")
+    @log.level = Logger::DEBUG
+  end
+
   main
 end
 

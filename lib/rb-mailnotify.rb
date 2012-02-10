@@ -10,7 +10,7 @@ require 'rb-inotify'
 WAIT_TIME = 3.5         # 1.5 (s), 1000 (ms), "2", nil, false
 
 @log = Logger.new(STDERR)
-@log.level = Logger::DEBUG
+@log.level = Logger::INFO
 
 def notify_new_mail(box, num)
   @log.debug("prepping to notify on #{box} email box, for #{num} emails")
