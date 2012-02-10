@@ -24,7 +24,9 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   #s.extra_rdoc_files = %w{ README.rdoc }
   #s.rdoc_options = ["--main=README.rdoc", "--line-numbers", "--inline-source", "--title=#{s.name} #{s.version} Documentation"]
-  s.add_dependency %w{ libnotify maildir rb-inotify }
+  %w{ libnotify maildir rb-inotify }.each do |dep|
+    s.add_dependency dep
+  end
 end
 
 Gem::PackageTask.new(spec) do |pkg|
