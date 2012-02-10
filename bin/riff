@@ -16,12 +16,10 @@ def main
 end
 
 
-if __FILE__ == $0
-  if ARGV.include?("-d") or ARGV.include?("--debug")
-    @log.level = Logger::DEBUG
-  end
-
-  main
+if ARGV.include?("-d") or ARGV.include?("--debug")
+  @log.level = Logger::DEBUG
 end
+
+main
 
 # vim:set sw=2 sts=2 et:
