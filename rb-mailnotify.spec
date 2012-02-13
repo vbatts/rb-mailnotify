@@ -11,8 +11,7 @@ Version: 0.2
 Release: 1%{?dist}
 Group: Development/Languages
 License: MIT
-Source0: http://file.rdu.redhat.com/~vbatts/gems/%{gemname}-%{version}.gem
-#Source1: %{gemname}-%{version}.tar.gz
+Source0: %{gemname}-%{version}.gem
 Requires: ruby(abi) = %{rubyabi}
 Requires: ruby(rubygems) 
 Requires: ruby 
