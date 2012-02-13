@@ -8,11 +8,18 @@ def main
   maildirs = find_maildirs(File.join(ENV["HOME"], "Maildir"))
 
   # Second: show the stats
+  total_unread = 0
+  total_dirs = 0
   maildirs.each do |mdir|
     check_maildir(mdir) do |new_mails, old_mails|
       puts "#{File.basename(mdir)}: #{new_mails.length} new, #{old_mails.length} current"
+      if new_mails.length > 0
+        total_unread += new_mails.length
+        total_dirs += 1
+      end
     end
   end
+  puts "Total Unread: #{total_unread} in #{total_dirs} directories"
 end
 
 

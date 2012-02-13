@@ -6,7 +6,7 @@ require 'rubygems/package_task'
 
 spec = Gem::Specification.new do |s|
   s.name = %q{rb-mailnotify}
-  s.version = "0.1"
+  s.version = "0.2"
   s.authors = ["Vincent Batts"]
   s.date = %q{2012-02-10}
   s.email = %q{vbatts@redhat.com}
