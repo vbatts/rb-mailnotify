@@ -7,11 +7,12 @@
 
 Summary: mail notification-ish tools
 Name: rubygem-%{gemname}
-Version: 0.1
+Version: 0.2
 Release: 1%{?dist}
 Group: Development/Languages
 License: MIT
-Source0: %{gemname}-%{version}.gem
+Source0: http://file.rdu.redhat.com/~vbatts/gems/%{gemname}-%{version}.gem
+#Source1: %{gemname}-%{version}.tar.gz
 Requires: ruby(abi) = %{rubyabi}
 Requires: ruby(rubygems) 
 Requires: ruby 
@@ -62,6 +63,7 @@ find %{buildroot}%{geminstdir}/bin -type f | xargs chmod a+x
 %{_bindir}/mailnotify
 %{geminstdir}/bin
 %{geminstdir}/lib
+%{geminstdir}/README.rdoc
 %exclude %{gemdir}/cache/%{gemname}-%{version}.gem
 %{gemdir}/specifications/%{gemname}-%{version}.gemspec
 
