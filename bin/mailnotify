@@ -11,11 +11,21 @@ def main
   #   if there are new events in the "new" directories,
   #   then trigger the libnotify for that subdir
   notifier = INotify::Notifier.new
+  times = {}
+  wait = 10
   maildirs.each do |mdir|
+    times[mdir] = Time.now # Start off with a timestamp
+
+    # The following block is storing a callback in the notifier
     notifier.watch(File.join(mdir, 'new'), :create, :moved_to) do |path|
-      check_maildir(mdir) do |new_mails,old_mails|
-        @log.debug("notifying about #{new_mails.length} emails in #{File.basename(mdir)}")
-        notify_new_mail(File.basename(mdir), new_mails.length)
+      if (times[mdir] + wait) < Time.now
+        check_maildir(mdir) do |new_mails,old_mails|
+          @log.debug("notifying about #{new_mails.length} emails in #{File.basename(mdir)}")
+          notify_new_mail(File.basename(mdir), new_mails.length)
+          times[mdir] = Time.now
+        end
+      else
+        @log.debug("too soo, waiting a couple of seconds for the dust to settle")
       end
     end
   end
