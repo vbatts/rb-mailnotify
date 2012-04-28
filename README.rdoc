@@ -10,6 +10,10 @@ Two simple tools.
 currently only responds to a '-d' or '--debug' to show debug output
 
 
+== Troubleshooting
+If you get an exception the there is no room left on device, run:
+ $> echo 100000 | sudo tee /proc/sys/fs/inotify/max_user_watches
+
 == License
 
 Copyright (c) 2012, Vincent Batts, Raleigh, NC
