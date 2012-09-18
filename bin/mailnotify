@@ -1,11 +1,44 @@
 #!/usr/bin/env ruby
 
+require 'optparse'
+
 require 'rubygems'
 require 'rb-mailnotify'
 
-def main
+$PROGRAM_NAME = "mailnotify"
+DEFAULT_MAILDIR = File.join(ENV["HOME"], "Maildir")
+
+def parse_args(args)
+  options = {
+    :maildir => DEFAULT_MAILDIR,
+    }
+  opts = OptionParser.new do |opts|
+    opts.on("-m MAILDIR", "--maildir", "use alternate maildir directory (default #{DEFAULT_MAILDIR}") do |o|
+      options[:maildir] = o
+    end
+    opts.on("-d", "--debug","enable debugging output") do |o|
+      options[:debug] = o
+    end
+    opts.on("-B","--background", "fork into the background") do |o|
+      options[:background] = o
+    end
+  end
+
+  begin
+    opts.parse!(args)
+  rescue OptionParser::InvalidOption => ex
+    puts ex
+    puts opts
+    abort
+  end
+
+
+  return options
+end
+
+def main(opts)
   # First: build list of maildirs. use 'find' and build that list
-  maildirs = find_maildirs(File.join(ENV["HOME"], "Maildir"))
+  maildirs = find_maildirs(opts[:maildir])
 
   # Second: setup inotify watchers on those directories
   #   if there are new events in the "new" directories,
@@ -25,7 +58,7 @@ def main
           times[mdir] = Time.now
         end
       else
-        @log.debug("too soo, waiting a couple of seconds for the dust to settle")
+        @log.debug("too soon, waiting a couple of seconds for the dust to settle")
       end
     end
   end
@@ -38,10 +71,14 @@ def main
   end
 end
 
-if ARGV.include?("-d") or ARGV.include?("--debug")
-  @log.level = Logger::DEBUG
-end
+@options = parse_args(ARGV)
+@log.level = Logger::DEBUG if @options[:debug]
 
-main
+if @options[:background]
+  pid = Kernel.fork { main(@options) }
+  puts "Running in background pid #{pid} ..."
+else
+  main(@options)
+end
 
 # vim:set sw=2 sts=2 et:
