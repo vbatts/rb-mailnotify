@@ -4,12 +4,14 @@
 require 'rake/testtask'
 require 'rubygems/package_task'
 
+task :default => :gem
+
 spec = Gem::Specification.new do |s|
   s.name = %q{rb-mailnotify}
-  s.version = "0.2"
+  s.version = "0.3"
   s.authors = ["Vincent Batts"]
-  s.date = %q{2012-02-10}
-  s.email = %q{vbatts@redhat.com}
+  s.date = %q{2012-09-12}
+  s.email = %q{vbatts@hashbangbash.com}
   s.homepage = %q{https://github.com/vbatts/rb-mailnotify/}
   s.platform = Gem::Platform::RUBY
   s.summary = %q{mail notification-ish tools}
